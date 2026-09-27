@@ -1,0 +1,10 @@
+node_modules
+.next
+.vercel
+.env*
+!.env.example
+npm-debug.log*
+.agents
+skills-lock.json
+AGENTS.md
+CLAUDE.md
