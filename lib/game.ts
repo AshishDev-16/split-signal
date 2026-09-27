@@ -200,7 +200,7 @@ export function makePuzzle(room: Room): Puzzle {
     if (selected.length >= desired) break;
     if (!selected.includes(clue) && clue.test(target)) selected.push(clue);
   }
-  const publicClues = selected.map(({ test: _test, ...clue }) => clue);
+  const publicClues = selected.map((clue) => ({ id: clue.id, text: clue.text, type: clue.type }));
   const assignments: Record<string, Clue[]> = {};
   room.players.forEach((p) => (assignments[p.id] = []));
   publicClues.forEach((clue, i) => {

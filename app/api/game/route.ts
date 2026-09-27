@@ -159,6 +159,21 @@ export async function POST(request: NextRequest) {
         room.puzzle = null;
         room.result = null;
         room.players.forEach((p) => { p.choice = null; p.ping = null; });
+      } else if (action === "leave") {
+        room.players = room.players.filter((p) => p.id !== playerId);
+        if (room.players.length > 0 && room.hostId === playerId) room.hostId = room.players[0].id;
+        if (room.phase === "playing") {
+          if (room.players.length < 2) {
+            room.phase = "lobby";
+            room.puzzle = null;
+            room.result = null;
+            room.players.forEach((p) => { p.choice = null; p.ping = null; });
+          } else {
+            room.players.forEach((p) => { p.choice = null; p.ping = null; });
+            room.puzzle = makePuzzle(room);
+            room.result = null;
+          }
+        }
       } else {
         throw new Error("Unknown action.");
       }
