@@ -185,12 +185,16 @@ button:disabled { cursor: not-allowed; }
   color: white;
   font: 800 26px var(--font-display);
   box-shadow: 0 7px 0 rgba(50, 35, 92, .15);
-  animation: bob 4s ease-in-out infinite;
+  animation: bob 7s cubic-bezier(.45, 0, .55, 1) infinite;
+  will-change: translate, rotate;
 }
 .floaty-one { left: 84%; top: 8%; background: var(--pink); transform: rotate(11deg); }
 .floaty-two { left: 72%; bottom: 12%; background: var(--yellow); color: var(--ink); animation-delay: -.8s; }
 .floaty-three { left: -5%; bottom: 30%; background: var(--mint); animation-delay: -1.7s; }
-@keyframes bob { 50% { translate: 0 -10px; rotate: 4deg; } }
+@keyframes bob {
+  0%, 100% { translate: 0 0; rotate: 0deg; }
+  50% { translate: 0 -10px; rotate: 4deg; }
+}
 
 .entry-panel {
   background: rgba(255, 255, 255, .91);
@@ -583,5 +587,9 @@ input:focus { border-color: var(--purple); box-shadow: 0 0 0 4px rgba(124, 77, 2
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *, *:before, *:after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  *, *:before, *:after {
+    animation: none !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
 }
